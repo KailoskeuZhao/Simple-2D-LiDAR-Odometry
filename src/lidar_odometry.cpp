@@ -3,7 +3,6 @@
 
 #include <cmath>
 
-#include <pcl/common/transforms.h>
 #include <pcl/registration/transformation_estimation_2D.h>
 
 namespace {
@@ -28,18 +27,6 @@ Eigen::Matrix4d planarTransform(double x, double y, double yaw)
     return transform;
 }
 
-Eigen::Matrix4d rigidTransform(double x, double y, double z, double roll, double pitch, double yaw)
-{
-    Eigen::Matrix4d transform = Eigen::Matrix4d::Identity();
-    const Eigen::AngleAxisd roll_angle(roll, Eigen::Vector3d::UnitX());
-    const Eigen::AngleAxisd pitch_angle(pitch, Eigen::Vector3d::UnitY());
-    const Eigen::AngleAxisd yaw_angle(yaw, Eigen::Vector3d::UnitZ());
-
-    transform.block<3, 3>(0, 0) = (yaw_angle * pitch_angle * roll_angle).toRotationMatrix();
-    transform.block<3, 1>(0, 3) = Eigen::Vector3d(x, y, z);
-    return transform;
-}
-
 Eigen::Matrix4d projectToPlanar(const Eigen::Matrix4d &transform)
 {
     return planarTransform(transform(0, 3), transform(1, 3), yawFromTransform(transform));
@@ -48,13 +35,7 @@ Eigen::Matrix4d projectToPlanar(const Eigen::Matrix4d &transform)
 
 LidarOdometry::LidarOdometry(double max_correspondence_distance,
                              double transformation_epsilon,
-                             double maximum_iterations,
-                             double base_to_lidar_x,
-                             double base_to_lidar_y,
-                             double base_to_lidar_z,
-                             double base_to_lidar_roll,
-                             double base_to_lidar_pitch,
-                             double base_to_lidar_yaw)
+                             double maximum_iterations)
 {
     icp = std::make_shared<pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ>>();
     auto transformation_estimation =
@@ -65,14 +46,6 @@ LidarOdometry::LidarOdometry(double max_correspondence_distance,
     icp->setTransformationEpsilon(transformation_epsilon);
     icp->setEuclideanFitnessEpsilon(1e-6);
     icp->setMaximumIterations(maximum_iterations);
-
-    BASE_T_LIDAR = rigidTransform(
-        base_to_lidar_x,
-        base_to_lidar_y,
-        base_to_lidar_z,
-        base_to_lidar_roll,
-        base_to_lidar_pitch,
-        base_to_lidar_yaw);
 
     POSE_G_B = Eigen::Matrix4d::Identity();
 
@@ -89,8 +62,6 @@ StatePtr LidarOdometry::get_state()
 
 void LidarOdometry::process_scan_data(ScanDataPtr scan_ptr)
 {
-    transform_scan_to_base(scan_ptr);
-
     if (last_scan_ptr) {
         double dt = scan_ptr->timestamp - last_scan_ptr->timestamp;
         Eigen::Matrix4d source_to_target = Eigen::Matrix4d::Identity();
@@ -116,14 +87,6 @@ void LidarOdometry::process_scan_data(ScanDataPtr scan_ptr)
     }
 
     last_scan_ptr = scan_ptr;
-}
-
-void LidarOdometry::transform_scan_to_base(ScanDataPtr scan)
-{
-    pcl::PointCloud<pcl::PointXYZ> base_cloud;
-    const Eigen::Matrix4f base_t_lidar = BASE_T_LIDAR.cast<float>();
-    pcl::transformPointCloud(scan->point_cloud, base_cloud, base_t_lidar);
-    scan->point_cloud = base_cloud;
 }
 
 bool LidarOdometry::get_transform_matrix(ScanDataPtr source, ScanDataPtr target, Eigen::Matrix4d &transform)

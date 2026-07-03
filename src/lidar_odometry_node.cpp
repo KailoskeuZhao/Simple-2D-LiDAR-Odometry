@@ -21,12 +21,7 @@ class LidarOdometryNode : public rclcpp::Node
       double max_correspondence_distance;
       double transformation_epsilon;
       double maximum_iterations;
-      double base_to_lidar_x;
-      double base_to_lidar_y;
-      double base_to_lidar_z;
-      double base_to_lidar_roll;
-      double base_to_lidar_pitch;
-      double base_to_lidar_yaw;
+      int queue_size;
       std::string point_cloud_topic_name;
       std::string legacy_scan_topic_name;
       std::string odom_topic_name;
@@ -34,17 +29,13 @@ class LidarOdometryNode : public rclcpp::Node
       this->get_parameter("max_correspondence_distance", max_correspondence_distance);
       this->get_parameter("transformation_epsilon", transformation_epsilon);
       this->get_parameter("maximum_iterations", maximum_iterations);
-      this->get_parameter("base_to_lidar_x", base_to_lidar_x);
-      this->get_parameter("base_to_lidar_y", base_to_lidar_y);
-      this->get_parameter("base_to_lidar_z", base_to_lidar_z);
-      this->get_parameter("base_to_lidar_roll", base_to_lidar_roll);
-      this->get_parameter("base_to_lidar_pitch", base_to_lidar_pitch);
-      this->get_parameter("base_to_lidar_yaw", base_to_lidar_yaw);
+      this->get_parameter("queue_size", queue_size);
       this->get_parameter("point_cloud_topic_name", point_cloud_topic_name);
       this->get_parameter("scan_topic_name", legacy_scan_topic_name);
       this->get_parameter("odom_topic_name", odom_topic_name);
       this->get_parameter("odom_frame_id", odom_frame_id_);
       this->get_parameter("odom_child_frame_id", odom_child_frame_id_);
+      this->get_parameter("expected_cloud_frame_id", expected_cloud_frame_id_);
       this->get_parameter("pose_xy_covariance", pose_xy_covariance_);
       this->get_parameter("pose_yaw_covariance", pose_yaw_covariance_);
       this->get_parameter("twist_xy_covariance", twist_xy_covariance_);
@@ -53,23 +44,30 @@ class LidarOdometryNode : public rclcpp::Node
       if (point_cloud_topic_name.empty()) {
         point_cloud_topic_name = legacy_scan_topic_name.empty() ? "lidar/PointCloudFiltered" : legacy_scan_topic_name;
       }
+      if (odom_child_frame_id_.empty()) {
+        RCLCPP_WARN(this->get_logger(), "odom_child_frame_id is empty; using base_frame");
+        odom_child_frame_id_ = "base_frame";
+      }
+      if (expected_cloud_frame_id_.empty()) {
+        RCLCPP_WARN(this->get_logger(), "expected_cloud_frame_id is empty; using base_frame");
+        expected_cloud_frame_id_ = "base_frame";
+      }
+      if (queue_size < 1) {
+        RCLCPP_WARN(this->get_logger(), "queue_size must be positive; using 1");
+        queue_size = 1;
+      }
 
       RCLCPP_INFO(this->get_logger(), "===== Configuration =====");
 
       RCLCPP_INFO(this->get_logger(), "max_correspondence_distance: %.4f", max_correspondence_distance);
       RCLCPP_INFO(this->get_logger(), "transformation_epsilon: %.4f", transformation_epsilon);
       RCLCPP_INFO(this->get_logger(), "maximum_iterations %.4f", maximum_iterations);
-      RCLCPP_INFO(this->get_logger(), "base_to_lidar_x: %.4f", base_to_lidar_x);
-      RCLCPP_INFO(this->get_logger(), "base_to_lidar_y: %.4f", base_to_lidar_y);
-      RCLCPP_INFO(this->get_logger(), "base_to_lidar_z: %.4f", base_to_lidar_z);
-      RCLCPP_INFO(this->get_logger(), "base_to_lidar_roll: %.4f", base_to_lidar_roll);
-      RCLCPP_INFO(this->get_logger(), "base_to_lidar_pitch: %.4f", base_to_lidar_pitch);
-      RCLCPP_INFO(this->get_logger(), "base_to_lidar_yaw: %.4f", base_to_lidar_yaw);
+      RCLCPP_INFO(this->get_logger(), "queue_size: %d", queue_size);
       RCLCPP_INFO(this->get_logger(), "point_cloud_topic_name: %s", point_cloud_topic_name.c_str());
       RCLCPP_INFO(this->get_logger(), "odom_topic_name: %s", odom_topic_name.c_str());
       RCLCPP_INFO(this->get_logger(), "odom_frame_id: %s", odom_frame_id_.c_str());
-      RCLCPP_INFO(this->get_logger(), "odom_child_frame_id: %s",
-                  odom_child_frame_id_.empty() ? "<cloud frame>" : odom_child_frame_id_.c_str());
+      RCLCPP_INFO(this->get_logger(), "odom_child_frame_id: %s", odom_child_frame_id_.c_str());
+      RCLCPP_INFO(this->get_logger(), "expected_cloud_frame_id: %s", expected_cloud_frame_id_.c_str());
       RCLCPP_INFO(this->get_logger(), "pose_xy_covariance: %.6f", pose_xy_covariance_);
       RCLCPP_INFO(this->get_logger(), "pose_yaw_covariance: %.6f", pose_yaw_covariance_);
       RCLCPP_INFO(this->get_logger(), "twist_xy_covariance: %.6f", twist_xy_covariance_);
@@ -78,17 +76,12 @@ class LidarOdometryNode : public rclcpp::Node
       lidar_odometry_ptr = std::make_shared<LidarOdometry>(
         max_correspondence_distance,
         transformation_epsilon,
-        maximum_iterations,
-        base_to_lidar_x,
-        base_to_lidar_y,
-        base_to_lidar_z,
-        base_to_lidar_roll,
-        base_to_lidar_pitch,
-        base_to_lidar_yaw);
+        maximum_iterations);
 
-      odom_publisher = this->create_publisher<nav_msgs::msg::Odometry>(odom_topic_name, 100);
+      const auto qos = rclcpp::QoS(rclcpp::KeepLast(queue_size));
+      odom_publisher = this->create_publisher<nav_msgs::msg::Odometry>(odom_topic_name, qos);
       point_cloud_subscriber = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-        point_cloud_topic_name, 1000, std::bind(&LidarOdometryNode::point_cloud_callback, this, std::placeholders::_1)
+        point_cloud_topic_name, qos, std::bind(&LidarOdometryNode::point_cloud_callback, this, std::placeholders::_1)
       );
     }
 
@@ -98,6 +91,7 @@ class LidarOdometryNode : public rclcpp::Node
       std::shared_ptr<LidarOdometry> lidar_odometry_ptr;
       std::string odom_frame_id_;
       std::string odom_child_frame_id_;
+      std::string expected_cloud_frame_id_;
       double pose_xy_covariance_;
       double pose_yaw_covariance_;
       double twist_xy_covariance_;
@@ -107,17 +101,13 @@ class LidarOdometryNode : public rclcpp::Node
         this->declare_parameter<double>("max_correspondence_distance", 1.0);
         this->declare_parameter<double>("transformation_epsilon", 0.005);
         this->declare_parameter<double>("maximum_iterations", 30);
-        this->declare_parameter<double>("base_to_lidar_x", -0.02);
-        this->declare_parameter<double>("base_to_lidar_y", 0.0);
-        this->declare_parameter<double>("base_to_lidar_z", 0.0);
-        this->declare_parameter<double>("base_to_lidar_roll", 0.0);
-        this->declare_parameter<double>("base_to_lidar_pitch", -3.1415);
-        this->declare_parameter<double>("base_to_lidar_yaw", 0.20);
+        this->declare_parameter<int>("queue_size", 5);
         this->declare_parameter<std::string>("point_cloud_topic_name", "lidar/PointCloudFiltered");
         this->declare_parameter<std::string>("scan_topic_name", "");
         this->declare_parameter<std::string>("odom_topic_name", "scan_odom");
         this->declare_parameter<std::string>("odom_frame_id", "odom");
         this->declare_parameter<std::string>("odom_child_frame_id", "base_frame");
+        this->declare_parameter<std::string>("expected_cloud_frame_id", "base_frame");
         this->declare_parameter<double>("pose_xy_covariance", 0.05);
         this->declare_parameter<double>("pose_yaw_covariance", 0.03);
         this->declare_parameter<double>("twist_xy_covariance", 0.10);
@@ -125,6 +115,14 @@ class LidarOdometryNode : public rclcpp::Node
       }
 
       void point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr point_cloud_msg) {
+        if (point_cloud_msg->header.frame_id != expected_cloud_frame_id_) {
+          RCLCPP_WARN_THROTTLE(
+            this->get_logger(), *this->get_clock(), 2000,
+            "Dropping point cloud in frame '%s'; expected '%s'. Check lidar_pointcloud_filter target_frame.",
+            point_cloud_msg->header.frame_id.c_str(), expected_cloud_frame_id_.c_str());
+          return;
+        }
+
         auto pcl_point_cloud = cloudmsg2cloud(*point_cloud_msg);
 
         auto scan_data = std::make_shared<ScanData>();
@@ -132,20 +130,16 @@ class LidarOdometryNode : public rclcpp::Node
         scan_data->point_cloud = pcl_point_cloud;
 
         lidar_odometry_ptr->process_scan_data(scan_data);
-        publish_odometry(point_cloud_msg->header.stamp, point_cloud_msg->header.frame_id);
+        publish_odometry(point_cloud_msg->header.stamp);
       }
 
-      void publish_odometry(const builtin_interfaces::msg::Time &stamp, const std::string &cloud_frame_id) {
+      void publish_odometry(const builtin_interfaces::msg::Time &stamp) {
         auto state = lidar_odometry_ptr->get_state();
-        std::string child_frame_id = odom_child_frame_id_.empty() ? cloud_frame_id : odom_child_frame_id_;
-        if (child_frame_id.empty()) {
-          child_frame_id = "lidar_frame";
-        }
 
         nav_msgs::msg::Odometry odom_msg;
 
         odom_msg.header.frame_id = odom_frame_id_;
-        odom_msg.child_frame_id = child_frame_id;
+        odom_msg.child_frame_id = odom_child_frame_id_;
         odom_msg.header.stamp = stamp;
 
         odom_msg.pose.pose = Eigen::toMsg(state->pose);
