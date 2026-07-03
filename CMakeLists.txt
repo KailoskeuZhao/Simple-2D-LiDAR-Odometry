@@ -13,7 +13,6 @@ find_package(nav_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(PCL REQUIRED)
 find_package(Eigen3 REQUIRED)
-find_package(laser_geometry REQUIRED)
 find_package(pcl_conversions REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_eigen REQUIRED)
@@ -33,7 +32,6 @@ ament_target_dependencies(lidar_odometry_node
   sensor_msgs
   geometry_msgs
   nav_msgs
-  laser_geometry
   pcl_conversions
   tf2
   tf2_eigen

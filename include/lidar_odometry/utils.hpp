@@ -5,11 +5,10 @@
 #include <Eigen/Geometry>
 #include <memory>
 #include <cfloat>
+#include <cmath>
 #include <pcl/PCLPointCloud2.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
-#include "laser_geometry/laser_geometry.hpp"
-#include "sensor_msgs/msg/laser_scan.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 
 
@@ -31,21 +30,11 @@ struct ScanData {
 
 using ScanDataPtr = std::shared_ptr<ScanData>;
 
-inline pcl::PointCloud<pcl::PointXYZ> cloudmsg2cloud(sensor_msgs::msg::PointCloud2 &cloudmsg)
+inline pcl::PointCloud<pcl::PointXYZ> cloudmsg2cloud(const sensor_msgs::msg::PointCloud2 &cloudmsg)
 {
     pcl::PointCloud<pcl::PointXYZ> cloud_dst;
     pcl::fromROSMsg(cloudmsg, cloud_dst);
     return cloud_dst;
-}
-
-inline sensor_msgs::msg::PointCloud2 laser2cloudmsg(sensor_msgs::msg::LaserScan::SharedPtr laser, std::string frame_id = "scan")
-{
-    static laser_geometry::LaserProjection projector;
-    sensor_msgs::msg::PointCloud2 pc2_dst;
-    projector.projectLaser(*laser, pc2_dst,-1,laser_geometry::channel_option::Intensity | laser_geometry::channel_option::Distance);
-    pc2_dst.header.frame_id = frame_id;
-
-    return pc2_dst;
 }
 
 inline Eigen::Matrix4d inverseSE3(const Eigen::Matrix4d& T) {
