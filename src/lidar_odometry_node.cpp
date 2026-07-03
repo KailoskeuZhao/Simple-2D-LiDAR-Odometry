@@ -33,6 +33,10 @@ class LidarOdometryNode : public rclcpp::Node
       this->get_parameter("odom_topic_name", odom_topic_name);
       this->get_parameter("odom_frame_id", odom_frame_id_);
       this->get_parameter("odom_child_frame_id", odom_child_frame_id_);
+      this->get_parameter("pose_xy_covariance", pose_xy_covariance_);
+      this->get_parameter("pose_yaw_covariance", pose_yaw_covariance_);
+      this->get_parameter("twist_xy_covariance", twist_xy_covariance_);
+      this->get_parameter("twist_yaw_covariance", twist_yaw_covariance_);
 
       if (point_cloud_topic_name.empty()) {
         point_cloud_topic_name = legacy_scan_topic_name.empty() ? "lidar/PointCloudFiltered" : legacy_scan_topic_name;
@@ -48,6 +52,10 @@ class LidarOdometryNode : public rclcpp::Node
       RCLCPP_INFO(this->get_logger(), "odom_frame_id: %s", odom_frame_id_.c_str());
       RCLCPP_INFO(this->get_logger(), "odom_child_frame_id: %s",
                   odom_child_frame_id_.empty() ? "<cloud frame>" : odom_child_frame_id_.c_str());
+      RCLCPP_INFO(this->get_logger(), "pose_xy_covariance: %.6f", pose_xy_covariance_);
+      RCLCPP_INFO(this->get_logger(), "pose_yaw_covariance: %.6f", pose_yaw_covariance_);
+      RCLCPP_INFO(this->get_logger(), "twist_xy_covariance: %.6f", twist_xy_covariance_);
+      RCLCPP_INFO(this->get_logger(), "twist_yaw_covariance: %.6f", twist_yaw_covariance_);
 
       lidar_odometry_ptr = std::make_shared<LidarOdometry>(max_correspondence_distance, transformation_epsilon, maximum_iterations);
 
@@ -63,6 +71,10 @@ class LidarOdometryNode : public rclcpp::Node
       std::shared_ptr<LidarOdometry> lidar_odometry_ptr;
       std::string odom_frame_id_;
       std::string odom_child_frame_id_;
+      double pose_xy_covariance_;
+      double pose_yaw_covariance_;
+      double twist_xy_covariance_;
+      double twist_yaw_covariance_;
 
       void parameter_initilization() {
         this->declare_parameter<double>("max_correspondence_distance", 1.0);
@@ -72,7 +84,11 @@ class LidarOdometryNode : public rclcpp::Node
         this->declare_parameter<std::string>("scan_topic_name", "");
         this->declare_parameter<std::string>("odom_topic_name", "scan_odom");
         this->declare_parameter<std::string>("odom_frame_id", "odom");
-        this->declare_parameter<std::string>("odom_child_frame_id", "base_frame");
+        this->declare_parameter<std::string>("odom_child_frame_id", "lidar_frame");
+        this->declare_parameter<double>("pose_xy_covariance", 0.05);
+        this->declare_parameter<double>("pose_yaw_covariance", 0.03);
+        this->declare_parameter<double>("twist_xy_covariance", 0.10);
+        this->declare_parameter<double>("twist_yaw_covariance", 0.05);
       }
 
       void point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr point_cloud_msg) {
@@ -101,8 +117,29 @@ class LidarOdometryNode : public rclcpp::Node
 
         odom_msg.pose.pose = Eigen::toMsg(state->pose);
         odom_msg.twist.twist = Eigen::toMsg(state->velocity);
+        set_odometry_covariance(odom_msg);
 
         odom_publisher->publish(odom_msg);
+      }
+
+      void set_odometry_covariance(nav_msgs::msg::Odometry &odom_msg) {
+        constexpr double ignored_axis_covariance = 1000.0;
+
+        odom_msg.pose.covariance.fill(0.0);
+        odom_msg.pose.covariance[0] = pose_xy_covariance_;
+        odom_msg.pose.covariance[7] = pose_xy_covariance_;
+        odom_msg.pose.covariance[14] = ignored_axis_covariance;
+        odom_msg.pose.covariance[21] = ignored_axis_covariance;
+        odom_msg.pose.covariance[28] = ignored_axis_covariance;
+        odom_msg.pose.covariance[35] = pose_yaw_covariance_;
+
+        odom_msg.twist.covariance.fill(0.0);
+        odom_msg.twist.covariance[0] = twist_xy_covariance_;
+        odom_msg.twist.covariance[7] = twist_xy_covariance_;
+        odom_msg.twist.covariance[14] = ignored_axis_covariance;
+        odom_msg.twist.covariance[21] = ignored_axis_covariance;
+        odom_msg.twist.covariance[28] = ignored_axis_covariance;
+        odom_msg.twist.covariance[35] = twist_yaw_covariance_;
       }
 
 };
