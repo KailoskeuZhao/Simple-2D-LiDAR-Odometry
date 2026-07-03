@@ -1,0 +1,67 @@
+[0.028s] Invoking command in '/root/fast_vivo_deployment_ws/src/Simple-2D-LiDAR-Odometry/build/lidar_odometry': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/fast_vivo_deployment_ws/install/yahboomcar_bringup:/root/fast_vivo_deployment_ws/install/yahboomcar_imu:/root/fast_vivo_deployment_ws/install/yahboomcar_ctrl:/root/yahboomcar_ws/install/yahboom_visual:/root/yahboomcar_ws/install/yahboom_set_height:/root/yahboomcar_ws/install/yahboom_qrcode_tracking:/root/yahboomcar_ws/install/yahboom_mediapipe:/root/yahboomcar_ws/install/yahboom_laser:/root/yahboomcar_ws/install/yahboom_gait:/root/yahboomcar_ws/install/yahboom_dog_joint_state:/root/yahboomcar_ws/install/yahboom_description:/root/yahboomcar_ws/install/yahboom_color_tracking:/root/yahboomcar_ws/install/yahboom_color_staus_redis:/root/yahboomcar_ws/install/yahboom_color_identify_server:/root/yahboomcar_ws/install/yahboom_bringup:/root/yahboomcar_ws/install/yahboom_base:/root/yahboomcar_ws/install/yahboom_app_save_map:/root/yahboomcar_ws/install/voice_xgo_ctrl_run:/root/yahboomcar_ws/install/tf_publisher:/root/yahboomcar_ws/install/bringup:/opt/ros/humble /usr/bin/cmake /root/fast_vivo_deployment_ws/src/Simple-2D-LiDAR-Odometry -DCMAKE_INSTALL_PREFIX=/root/fast_vivo_deployment_ws/src/Simple-2D-LiDAR-Odometry/install/lidar_odometry
+[0.150s] -- The C compiler identification is GNU 11.4.0
+[0.275s] -- The CXX compiler identification is GNU 11.4.0
+[0.300s] -- Detecting C compiler ABI info
+[0.483s] -- Detecting C compiler ABI info - done
+[0.511s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.512s] -- Detecting C compile features
+[0.513s] -- Detecting C compile features - done
+[0.528s] -- Detecting CXX compiler ABI info
+[0.707s] -- Detecting CXX compiler ABI info - done
+[0.736s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.736s] -- Detecting CXX compile features
+[0.738s] -- Detecting CXX compile features - done
+[0.797s] -- Found ament_cmake: 1.3.8 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.870s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[2.487s] -- Found rclcpp: 16.0.8 (/opt/ros/humble/share/rclcpp/cmake)
+[2.870s] -- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[2.925s] -- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[2.992s] -- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[3.079s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.187s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.571s] -- Found rmw_implementation_cmake: 6.1.1 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[3.605s] -- Found rmw_fastrtps_cpp: 6.2.6 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[3.981s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[4.066s] -- Found FastRTPS: /opt/ros/humble/include  
+[4.219s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[4.310s] -- Looking for pthread.h
+[4.480s] -- Looking for pthread.h - found
+[4.482s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[4.671s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[4.676s] -- Found Threads: TRUE  
+[5.097s] -- Found sensor_msgs: 4.2.3 (/opt/ros/humble/share/sensor_msgs/cmake)
+[5.357s] -- Found nav_msgs: 4.2.3 (/opt/ros/humble/share/nav_msgs/cmake)
+[5.542s] -- Checking for module 'eigen3'
+[5.575s] --   Found eigen3, version 3.4.0
+[5.653s] -- Found Eigen: /usr/include/eigen3 (Required is at least version "3.1") 
+[5.653s] -- Eigen found (include: /usr/include/eigen3, version: 3.4.0)
+[5.745s] Invoked command in '/root/fast_vivo_deployment_ws/src/Simple-2D-LiDAR-Odometry/build/lidar_odometry' returned '-2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/fast_vivo_deployment_ws/install/yahboomcar_bringup:/root/fast_vivo_deployment_ws/install/yahboomcar_imu:/root/fast_vivo_deployment_ws/install/yahboomcar_ctrl:/root/yahboomcar_ws/install/yahboom_visual:/root/yahboomcar_ws/install/yahboom_set_height:/root/yahboomcar_ws/install/yahboom_qrcode_tracking:/root/yahboomcar_ws/install/yahboom_mediapipe:/root/yahboomcar_ws/install/yahboom_laser:/root/yahboomcar_ws/install/yahboom_gait:/root/yahboomcar_ws/install/yahboom_dog_joint_state:/root/yahboomcar_ws/install/yahboom_description:/root/yahboomcar_ws/install/yahboom_color_tracking:/root/yahboomcar_ws/install/yahboom_color_staus_redis:/root/yahboomcar_ws/install/yahboom_color_identify_server:/root/yahboomcar_ws/install/yahboom_bringup:/root/yahboomcar_ws/install/yahboom_base:/root/yahboomcar_ws/install/yahboom_app_save_map:/root/yahboomcar_ws/install/voice_xgo_ctrl_run:/root/yahboomcar_ws/install/tf_publisher:/root/yahboomcar_ws/install/bringup:/opt/ros/humble /usr/bin/cmake /root/fast_vivo_deployment_ws/src/Simple-2D-LiDAR-Odometry -DCMAKE_INSTALL_PREFIX=/root/fast_vivo_deployment_ws/src/Simple-2D-LiDAR-Odometry/install/lidar_odometry
+[5.753s] Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/colcon_parallel_executor/executor/parallel.py", line 75, in execute
+    loop.run_until_complete(future)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/usr/lib/python3.10/selectors.py", line 469, in select
+    fd_event_list = self._selector.poll(timeout, max_ev)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/colcon_core/executor/__init__.py", line 91, in __call__
+    rc = await self.task(*args, **kwargs)
+  File "/usr/lib/python3/dist-packages/colcon_core/task/__init__.py", line 93, in __call__
+    return await task_method(*args, **kwargs)
+  File "/usr/lib/python3/dist-packages/colcon_ros/task/ament_cmake/build.py", line 59, in build
+    rc = await extension.build(
+  File "/usr/lib/python3/dist-packages/colcon_cmake/task/cmake/build.py", line 87, in build
+    rc = await self._reconfigure(args, env)
+  File "/usr/lib/python3/dist-packages/colcon_cmake/task/cmake/build.py", line 182, in _reconfigure
+    buildfile = get_buildfile(cmake_cache)
+  File "/usr/lib/python3/dist-packages/colcon_cmake/task/cmake/__init__.py", line 114, in get_buildfile
+    if 'Visual Studio' in generator:
+TypeError: argument of type 'NoneType' is not iterable

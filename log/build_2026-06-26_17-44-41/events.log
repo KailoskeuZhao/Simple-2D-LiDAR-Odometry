@@ -1,0 +1,102 @@
+[0.000000] (-) TimerEvent: {}
+[0.000844] (lidar_odometry) JobQueued: {'identifier': 'lidar_odometry', 'dependencies': OrderedDict()}
+[0.001223] (lidar_odometry) JobStarted: {'identifier': 'lidar_odometry'}
+[0.026902] (lidar_odometry) JobProgress: {'identifier': 'lidar_odometry', 'progress': 'cmake'}
+[0.027393] (lidar_odometry) Command: {'cmd': ['/usr/bin/cmake', '/root/fast_vivo_deployment_ws/src/Simple-2D-LiDAR-Odometry', '-DCMAKE_INSTALL_PREFIX=/root/fast_vivo_deployment_ws/src/Simple-2D-LiDAR-Odometry/install/lidar_odometry'], 'cwd': '/root/fast_vivo_deployment_ws/src/Simple-2D-LiDAR-Odometry/build/lidar_odometry', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('TMUX', '/tmp/tmux-0/default,142,0'), ('HOSTNAME', 'ubuntu'), ('ROS_PACKAGE_PATH', '/root/fast_vivo_deployment_ws/install/vikit_common/share'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/root/fast_vivo_deployment_ws/install/orbbec_camera/lib:/root/fast_vivo_deployment_ws/install/orbbec_camera_msgs/lib:/root/yahboomcar_ws/install/yahboom_msgs/lib:/root/yahboomcar_ws/install/yahboom_color_identify_interfaces/lib:/root/yahboomcar_ws/install/yahboom_attitude_record_interfaces/lib:/root/yahboomcar_ws/install/image_color_lab/lib:/root/yahboomcar_ws/install/champ_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/root/fast_vivo_deployment_ws/src/Simple-2D-LiDAR-Odometry/src'), ('TERM_PROGRAM_VERSION', '3.2a'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/root/fast_vivo_deployment_ws/install:/root/yahboomcar_ws/install'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/root/fast_vivo_deployment_ws/install/vikit_common/lib/aarch64-linux-gnu/pkgconfig:/root/fast_vivo_deployment_ws/install/vikit_common/lib/pkgconfig'), ('TERM', 'screen'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/root/yahboomcar_ws/install/oradar_lidar/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', ':1001'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('TERM_PROGRAM', 'tmux'), ('ROS_DOMAIN_ID', '12'), ('AMENT_PREFIX_PATH', '/root/fast_vivo_deployment_ws/install/yahboomcar_bringup:/root/fast_vivo_deployment_ws/install/yahboomcar_imu:/root/fast_vivo_deployment_ws/install/yahboomcar_ctrl:/root/fast_vivo_deployment_ws/install/orbbec_description:/root/fast_vivo_deployment_ws/install/orbbec_camera:/root/fast_vivo_deployment_ws/install/orbbec_camera_msgs:/root/fast_vivo_deployment_ws/install/lidar_tg30:/root/fast_vivo_deployment_ws/install/lidar_odometry:/root/yahboomcar_ws/install/ydlidar_ros2_driver:/root/yahboomcar_ws/install/yahboom_visual:/root/yahboomcar_ws/install/yahboom_set_height:/root/yahboomcar_ws/install/yahboom_qrcode_tracking:/root/yahboomcar_ws/install/yahboom_qrcode:/root/yahboomcar_ws/install/yahboom_publish:/root/yahboomcar_ws/install/yahboom_msgs:/root/yahboomcar_ws/install/yahboom_mediapipe:/root/yahboomcar_ws/install/yahboom_laser:/root/yahboomcar_ws/install/yahboom_gait:/root/yahboomcar_ws/install/yahboom_dog_joint_state:/root/yahboomcar_ws/install/yahboom_description:/root/yahboomcar_ws/install/yahboom_color_tracking:/root/yahboomcar_ws/install/yahboom_color_staus_redis:/root/yahboomcar_ws/install/yahboom_color_identify_server:/root/yahboomcar_ws/install/yahboom_color_identify_interfaces:/root/yahboomcar_ws/install/yahboom_bringup:/root/yahboomcar_ws/install/yahboom_base:/root/yahboomcar_ws/install/yahboom_attitude_record_interfaces:/root/yahboomcar_ws/install/yahboom_app_save_map:/root/yahboomcar_ws/install/voice_xgo_ctrl_run:/root/yahboomcar_ws/install/tf_publisher:/root/yahboomcar_ws/install/oradar_lidar:/root/yahboomcar_ws/install/image_color_lab:/root/yahboomcar_ws/install/champ_msgs:/root/yahboomcar_ws/install/champ_bringup:/root/yahboomcar_ws/install/champ:/root/yahboomcar_ws/install/bringup:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/root/fast_vivo_deployment_ws/src/Simple-2D-LiDAR-Odometry/build/lidar_odometry'), ('PYTHONPATH', '/root/fast_vivo_deployment_ws/install/yahboomcar_bringup/lib/python3.10/site-packages:/root/fast_vivo_deployment_ws/install/yahboomcar_imu/lib/python3.10/site-packages:/root/fast_vivo_deployment_ws/install/yahboomcar_ctrl/lib/python3.10/site-packages:/root/fast_vivo_deployment_ws/install/orbbec_camera_msgs/local/lib/python3.10/dist-packages:/root/yahboomcar_ws/install/yahboom_visual/lib/python3.10/site-packages:/root/yahboomcar_ws/install/yahboom_set_height/lib/python3.10/site-packages:/root/yahboomcar_ws/install/yahboom_qrcode_tracking/lib/python3.10/site-packages:/root/yahboomcar_ws/install/yahboom_msgs/local/lib/python3.10/dist-packages:/root/yahboomcar_ws/install/yahboom_mediapipe/lib/python3.10/site-packages:/root/yahboomcar_ws/install/yahboom_laser/lib/python3.10/site-packages:/root/yahboomcar_ws/install/yahboom_gait/lib/python3.10/site-packages:/root/yahboomcar_ws/install/yahboom_dog_joint_state/lib/python3.10/site-packages:/root/yahboomcar_ws/install/yahboom_description/lib/python3.10/site-packages:/root/yahboomcar_ws/install/yahboom_color_tracking/lib/python3.10/site-packages:/root/yahboomcar_ws/install/yahboom_color_staus_redis/lib/python3.10/site-packages:/root/yahboomcar_ws/install/yahboom_color_identify_server/lib/python3.10/site-packages:/root/yahboomcar_ws/install/yahboom_color_identify_interfaces/local/lib/python3.10/dist-packages:/root/yahboomcar_ws/install/yahboom_bringup/lib/python3.10/site-packages:/root/yahboomcar_ws/install/yahboom_base/lib/python3.10/site-packages:/root/yahboomcar_ws/install/yahboom_attitude_record_interfaces/local/lib/python3.10/dist-packages:/root/yahboomcar_ws/install/yahboom_app_save_map/lib/python3.10/site-packages:/root/yahboomcar_ws/install/voice_xgo_ctrl_run/lib/python3.10/site-packages:/root/yahboomcar_ws/install/tf_publisher/lib/python3.10/site-packages:/root/yahboomcar_ws/install/image_color_lab/local/lib/python3.10/dist-packages:/root/yahboomcar_ws/install/champ_msgs/local/lib/python3.10/dist-packages:/root/yahboomcar_ws/install/champ_bringup/local/lib/python3.10/dist-packages:/root/yahboomcar_ws/install/bringup/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('TMUX_PANE', '%0'), ('CMAKE_PREFIX_PATH', '/root/fast_vivo_deployment_ws/install/orbbec_description:/root/fast_vivo_deployment_ws/install/orbbec_camera:/root/fast_vivo_deployment_ws/install/orbbec_camera_msgs:/root/fast_vivo_deployment_ws/install/lidar_tg30:/root/fast_vivo_deployment_ws/install/lidar_odometry:/root/yahboomcar_ws/install/ydlidar_ros2_driver:/root/yahboomcar_ws/install/yahboom_qrcode:/root/yahboomcar_ws/install/yahboom_publish:/root/yahboomcar_ws/install/yahboom_msgs:/root/yahboomcar_ws/install/yahboom_color_identify_interfaces:/root/yahboomcar_ws/install/yahboom_attitude_record_interfaces:/root/yahboomcar_ws/install/oradar_lidar:/root/yahboomcar_ws/install/image_color_lab:/root/yahboomcar_ws/install/champ_msgs:/root/yahboomcar_ws/install/champ_bringup:/root/yahboomcar_ws/install/champ:/root/fast_vivo_deployment_ws/install/yahboomcar_bringup:/root/fast_vivo_deployment_ws/install/yahboomcar_imu:/root/fast_vivo_deployment_ws/install/yahboomcar_ctrl:/root/yahboomcar_ws/install/yahboom_visual:/root/yahboomcar_ws/install/yahboom_set_height:/root/yahboomcar_ws/install/yahboom_qrcode_tracking:/root/yahboomcar_ws/install/yahboom_mediapipe:/root/yahboomcar_ws/install/yahboom_laser:/root/yahboomcar_ws/install/yahboom_gait:/root/yahboomcar_ws/install/yahboom_dog_joint_state:/root/yahboomcar_ws/install/yahboom_description:/root/yahboomcar_ws/install/yahboom_color_tracking:/root/yahboomcar_ws/install/yahboom_color_staus_redis:/root/yahboomcar_ws/install/yahboom_color_identify_server:/root/yahboomcar_ws/install/yahboom_bringup:/root/yahboomcar_ws/install/yahboom_base:/root/yahboomcar_ws/install/yahboom_app_save_map:/root/yahboomcar_ws/install/voice_xgo_ctrl_run:/root/yahboomcar_ws/install/tf_publisher:/root/yahboomcar_ws/install/bringup:/opt/ros/humble')]), 'shell': False}
+[0.099059] (-) TimerEvent: {}
+[0.149816] (lidar_odometry) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.199247] (-) TimerEvent: {}
+[0.275591] (lidar_odometry) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.299507] (-) TimerEvent: {}
+[0.301076] (lidar_odometry) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.399657] (-) TimerEvent: {}
+[0.483801] (lidar_odometry) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.499794] (-) TimerEvent: {}
+[0.511543] (lidar_odometry) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.512798] (lidar_odometry) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.514623] (lidar_odometry) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.529396] (lidar_odometry) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.599989] (-) TimerEvent: {}
+[0.700632] (-) TimerEvent: {}
+[0.707950] (lidar_odometry) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.736106] (lidar_odometry) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.737401] (lidar_odometry) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.739349] (lidar_odometry) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.798179] (lidar_odometry) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.8 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.800715] (-) TimerEvent: {}
+[0.901247] (-) TimerEvent: {}
+[1.001871] (-) TimerEvent: {}
+[1.102610] (-) TimerEvent: {}
+[1.203333] (-) TimerEvent: {}
+[1.303961] (-) TimerEvent: {}
+[1.404697] (-) TimerEvent: {}
+[1.505462] (-) TimerEvent: {}
+[1.606248] (-) TimerEvent: {}
+[1.706786] (-) TimerEvent: {}
+[1.807331] (-) TimerEvent: {}
+[1.870319] (lidar_odometry) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[1.907470] (-) TimerEvent: {}
+[2.008117] (-) TimerEvent: {}
+[2.109396] (-) TimerEvent: {}
+[2.211326] (-) TimerEvent: {}
+[2.311939] (-) TimerEvent: {}
+[2.412559] (-) TimerEvent: {}
+[2.487694] (lidar_odometry) StdoutLine: {'line': b'-- Found rclcpp: 16.0.8 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[2.512673] (-) TimerEvent: {}
+[2.613319] (-) TimerEvent: {}
+[2.714146] (-) TimerEvent: {}
+[2.814950] (-) TimerEvent: {}
+[2.870553] (lidar_odometry) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[2.915056] (-) TimerEvent: {}
+[2.926409] (lidar_odometry) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[2.992834] (lidar_odometry) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[3.015346] (-) TimerEvent: {}
+[3.080221] (lidar_odometry) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[3.115442] (-) TimerEvent: {}
+[3.188237] (lidar_odometry) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[3.215619] (-) TimerEvent: {}
+[3.316319] (-) TimerEvent: {}
+[3.417117] (-) TimerEvent: {}
+[3.517758] (-) TimerEvent: {}
+[3.572351] (lidar_odometry) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.1 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[3.606142] (lidar_odometry) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.6 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[3.617830] (-) TimerEvent: {}
+[3.718306] (-) TimerEvent: {}
+[3.818939] (-) TimerEvent: {}
+[3.919597] (-) TimerEvent: {}
+[3.981779] (lidar_odometry) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[4.019718] (-) TimerEvent: {}
+[4.066883] (lidar_odometry) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[4.119897] (-) TimerEvent: {}
+[4.220242] (lidar_odometry) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[4.220694] (-) TimerEvent: {}
+[4.310909] (lidar_odometry) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[4.320810] (-) TimerEvent: {}
+[4.421330] (-) TimerEvent: {}
+[4.481424] (lidar_odometry) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[4.482795] (lidar_odometry) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[4.521932] (-) TimerEvent: {}
+[4.623678] (-) TimerEvent: {}
+[4.672374] (lidar_odometry) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[4.676708] (lidar_odometry) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[4.723820] (-) TimerEvent: {}
+[4.824576] (-) TimerEvent: {}
+[4.925211] (-) TimerEvent: {}
+[5.025865] (-) TimerEvent: {}
+[5.098432] (lidar_odometry) StdoutLine: {'line': b'-- Found sensor_msgs: 4.2.3 (/opt/ros/humble/share/sensor_msgs/cmake)\n'}
+[5.125983] (-) TimerEvent: {}
+[5.226563] (-) TimerEvent: {}
+[5.327189] (-) TimerEvent: {}
+[5.357579] (lidar_odometry) StdoutLine: {'line': b'-- Found nav_msgs: 4.2.3 (/opt/ros/humble/share/nav_msgs/cmake)\n'}
+[5.427355] (-) TimerEvent: {}
+[5.527982] (-) TimerEvent: {}
+[5.543058] (lidar_odometry) StdoutLine: {'line': b"-- Checking for module 'eigen3'\n"}
+[5.575710] (lidar_odometry) StdoutLine: {'line': b'--   Found eigen3, version 3.4.0\n'}
+[5.628150] (-) TimerEvent: {}
+[5.653540] (lidar_odometry) StdoutLine: {'line': b'-- Found Eigen: /usr/include/eigen3 (Required is at least version "3.1") \n'}
+[5.654079] (lidar_odometry) StdoutLine: {'line': b'-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)\n'}
+[5.728352] (-) TimerEvent: {}
+[5.745611] (lidar_odometry) CommandEnded: {'returncode': -2}
+[5.753758] (lidar_odometry) StderrLine: {'line': b'Traceback (most recent call last):\n  File "/usr/lib/python3/dist-packages/colcon_parallel_executor/executor/parallel.py", line 75, in execute\n    loop.run_until_complete(future)\n  File "/usr/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete\n    self.run_forever()\n  File "/usr/lib/python3.10/asyncio/base_events.py", line 603, in run_forever\n    self._run_once()\n  File "/usr/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once\n    event_list = self._selector.select(timeout)\n  File "/usr/lib/python3.10/selectors.py", line 469, in select\n    fd_event_list = self._selector.poll(timeout, max_ev)\nKeyboardInterrupt\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File "/usr/lib/python3/dist-packages/colcon_core/executor/__init__.py", line 91, in __call__\n    rc = await self.task(*args, **kwargs)\n  File "/usr/lib/python3/dist-packages/colcon_core/task/__init__.py", line 93, in __call__\n    return await task_method(*args, **kwargs)\n  File "/usr/lib/python3/dist-packages/colcon_ros/task/ament_cmake/build.py", line 59, in build\n    rc = await extension.build(\n  File "/usr/lib/python3/dist-packages/colcon_cmake/task/cmake/build.py", line 87, in build\n    rc = await self._reconfigure(args, env)\n  File "/usr/lib/python3/dist-packages/colcon_cmake/task/cmake/build.py", line 182, in _reconfigure\n    buildfile = get_buildfile(cmake_cache)\n  File "/usr/lib/python3/dist-packages/colcon_cmake/task/cmake/__init__.py", line 114, in get_buildfile\n    if \'Visual Studio\' in generator:\nTypeError: argument of type \'NoneType\' is not iterable\n'}
+[5.754335] (lidar_odometry) JobEnded: {'identifier': 'lidar_odometry', 'rc': 'SIGINT'}
+[5.766700] (-) EventReactorShutdown: {}
