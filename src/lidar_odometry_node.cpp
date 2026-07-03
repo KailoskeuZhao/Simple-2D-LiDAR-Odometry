@@ -21,6 +21,12 @@ class LidarOdometryNode : public rclcpp::Node
       double max_correspondence_distance;
       double transformation_epsilon;
       double maximum_iterations;
+      double base_to_lidar_x;
+      double base_to_lidar_y;
+      double base_to_lidar_z;
+      double base_to_lidar_roll;
+      double base_to_lidar_pitch;
+      double base_to_lidar_yaw;
       std::string point_cloud_topic_name;
       std::string legacy_scan_topic_name;
       std::string odom_topic_name;
@@ -28,6 +34,12 @@ class LidarOdometryNode : public rclcpp::Node
       this->get_parameter("max_correspondence_distance", max_correspondence_distance);
       this->get_parameter("transformation_epsilon", transformation_epsilon);
       this->get_parameter("maximum_iterations", maximum_iterations);
+      this->get_parameter("base_to_lidar_x", base_to_lidar_x);
+      this->get_parameter("base_to_lidar_y", base_to_lidar_y);
+      this->get_parameter("base_to_lidar_z", base_to_lidar_z);
+      this->get_parameter("base_to_lidar_roll", base_to_lidar_roll);
+      this->get_parameter("base_to_lidar_pitch", base_to_lidar_pitch);
+      this->get_parameter("base_to_lidar_yaw", base_to_lidar_yaw);
       this->get_parameter("point_cloud_topic_name", point_cloud_topic_name);
       this->get_parameter("scan_topic_name", legacy_scan_topic_name);
       this->get_parameter("odom_topic_name", odom_topic_name);
@@ -47,6 +59,12 @@ class LidarOdometryNode : public rclcpp::Node
       RCLCPP_INFO(this->get_logger(), "max_correspondence_distance: %.4f", max_correspondence_distance);
       RCLCPP_INFO(this->get_logger(), "transformation_epsilon: %.4f", transformation_epsilon);
       RCLCPP_INFO(this->get_logger(), "maximum_iterations %.4f", maximum_iterations);
+      RCLCPP_INFO(this->get_logger(), "base_to_lidar_x: %.4f", base_to_lidar_x);
+      RCLCPP_INFO(this->get_logger(), "base_to_lidar_y: %.4f", base_to_lidar_y);
+      RCLCPP_INFO(this->get_logger(), "base_to_lidar_z: %.4f", base_to_lidar_z);
+      RCLCPP_INFO(this->get_logger(), "base_to_lidar_roll: %.4f", base_to_lidar_roll);
+      RCLCPP_INFO(this->get_logger(), "base_to_lidar_pitch: %.4f", base_to_lidar_pitch);
+      RCLCPP_INFO(this->get_logger(), "base_to_lidar_yaw: %.4f", base_to_lidar_yaw);
       RCLCPP_INFO(this->get_logger(), "point_cloud_topic_name: %s", point_cloud_topic_name.c_str());
       RCLCPP_INFO(this->get_logger(), "odom_topic_name: %s", odom_topic_name.c_str());
       RCLCPP_INFO(this->get_logger(), "odom_frame_id: %s", odom_frame_id_.c_str());
@@ -57,7 +75,16 @@ class LidarOdometryNode : public rclcpp::Node
       RCLCPP_INFO(this->get_logger(), "twist_xy_covariance: %.6f", twist_xy_covariance_);
       RCLCPP_INFO(this->get_logger(), "twist_yaw_covariance: %.6f", twist_yaw_covariance_);
 
-      lidar_odometry_ptr = std::make_shared<LidarOdometry>(max_correspondence_distance, transformation_epsilon, maximum_iterations);
+      lidar_odometry_ptr = std::make_shared<LidarOdometry>(
+        max_correspondence_distance,
+        transformation_epsilon,
+        maximum_iterations,
+        base_to_lidar_x,
+        base_to_lidar_y,
+        base_to_lidar_z,
+        base_to_lidar_roll,
+        base_to_lidar_pitch,
+        base_to_lidar_yaw);
 
       odom_publisher = this->create_publisher<nav_msgs::msg::Odometry>(odom_topic_name, 100);
       point_cloud_subscriber = this->create_subscription<sensor_msgs::msg::PointCloud2>(
@@ -80,11 +107,17 @@ class LidarOdometryNode : public rclcpp::Node
         this->declare_parameter<double>("max_correspondence_distance", 1.0);
         this->declare_parameter<double>("transformation_epsilon", 0.005);
         this->declare_parameter<double>("maximum_iterations", 30);
+        this->declare_parameter<double>("base_to_lidar_x", -0.02);
+        this->declare_parameter<double>("base_to_lidar_y", 0.0);
+        this->declare_parameter<double>("base_to_lidar_z", 0.0);
+        this->declare_parameter<double>("base_to_lidar_roll", 0.0);
+        this->declare_parameter<double>("base_to_lidar_pitch", -3.1415);
+        this->declare_parameter<double>("base_to_lidar_yaw", 0.20);
         this->declare_parameter<std::string>("point_cloud_topic_name", "lidar/PointCloudFiltered");
         this->declare_parameter<std::string>("scan_topic_name", "");
         this->declare_parameter<std::string>("odom_topic_name", "scan_odom");
         this->declare_parameter<std::string>("odom_frame_id", "odom");
-        this->declare_parameter<std::string>("odom_child_frame_id", "lidar_frame");
+        this->declare_parameter<std::string>("odom_child_frame_id", "base_frame");
         this->declare_parameter<double>("pose_xy_covariance", 0.05);
         this->declare_parameter<double>("pose_yaw_covariance", 0.03);
         this->declare_parameter<double>("twist_xy_covariance", 0.10);
